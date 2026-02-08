@@ -1,0 +1,40 @@
+name: Lunardi Reposts
+on:
+  schedule:
+    # monday (Seg=1): 01SP=04UTC,12SP=15UTC,17SP=20UTC
+    - cron: '0 4,15,20 * * 1'
+    # tuesday (Ter=2): 01SP=04UTC,12SP=15UTC
+    - cron: '0 4,15 * * 2'
+    # wednesday (Qua=3): 15SP=18UTC,23SP=02UTC(Qui=4)
+    - cron: '0 18 * * 3'
+    - cron: '0 2 * * 4'
+    # thursday (Qui=4): 13SP=16UTC,23SP=02UTC(Sex=5)
+    - cron: '0 16 * * 4'
+    - cron: '0 2 * * 5'
+    # friday (Sex=5): 15SP=18UTC,23SP=02UTC(Sáb=6)
+    - cron: '0 18 * * 5'
+    - cron: '0 2 * * 6'
+    # saturday (Sáb=6): 12SP=15UTC,23SP=02UTC(Dom=0)
+    - cron: '0 15 * * 6'
+    - cron: '0 2 * * 0'
+    # sunday (Dom=0): 11SP=14UTC,17SP=20UTC,21SP=00UTC(Dom+1=0)
+    - cron: '0 14,20 * * 0'
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  repost:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: pip install tweepy pytz colorama schedule
+    - run: python repost_one_run.py
+      env:
+        BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+        API_KEY: ${{ secrets.API_KEY }}
+        API_SECRET: ${{ secrets.API_SECRET }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
