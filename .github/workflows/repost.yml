@@ -1,6 +1,7 @@
 name: Lunardi Reposts
 on:
   schedule:
+    - cron: '*/1 * * * *'   # ← TESTE: roda todo minuto
     # monday (Seg=1): 01SP=04UTC,12SP=15UTC,17SP=20UTC
     - cron: '0 4,15,20 * * 1'
     # tuesday (Ter=2): 01SP=04UTC,12SP=15UTC
