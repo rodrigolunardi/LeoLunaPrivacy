@@ -1,34 +1,21 @@
 name: Lunardi Reposts
 on:
   schedule:
-  # Monday
-  - cron: "0 4,15,20 * * 1"
-  
-  # Tuesday
-  - cron: "0 4,15 * * 2"
-  
-  # Wednesday
-  - cron: "0 18 * * 3"
-  - cron: "0 2 * * 4"
-  
-  # Thursday
-  - cron: "0 16 * * 4"
-  - cron: "0 2 * * 5"
-  
-  # Friday
-  - cron: "0 18 * * 5"
-  - cron: "0 2 * * 6"
-  
-  # Saturday
-  - cron: "0 15 * * 6"
-  - cron: "0 2 * * 0"
-  - cron: "53 2 * * 0"
-  
-  # Sunday
-  - cron: "0 14 * * 0"
-  - cron: "0 20 * * 0"
-  - cron: "0 0 * * 1"   # 21:00 SP domingo
-  - cron: "5 3 * * 0"   # 00:05 SP domingo (novo)
+    - cron: "0 4,15,20 * * 1"
+    - cron: "0 4,15 * * 2"
+    - cron: "0 18 * * 3"
+    - cron: "0 2 * * 4"
+    - cron: "0 16 * * 4"
+    - cron: "0 2 * * 5"
+    - cron: "0 18 * * 5"
+    - cron: "0 2 * * 6"
+    - cron: "0 15 * * 6"
+    - cron: "0 2 * * 0"
+    - cron: "53 2 * * 0"
+    - cron: "0 14 * * 0"
+    - cron: "0 20 * * 0"
+    - cron: "0 0 * * 1"   # 21:00 domingo SP
+    - cron: "5 3 * * 0"   # 00:05 domingo SP
   workflow_dispatch:
 
 # update to refresh cron
