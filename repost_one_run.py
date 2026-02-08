@@ -37,7 +37,7 @@ HORARIOS_POR_DIA = {
     'wednesday': ['15:00', '23:00'],
     'thursday': ['13:00', '23:00'],
     'friday': ['15:00', '23:00'],
-    'saturday': ['12:00', '23:00'],
+    'saturday': ['12:00', '23:00', '23:20'],
     'sunday': ['11:00', '17:00', '21:00']
 }
 
@@ -108,4 +108,5 @@ try:
         log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
+
 
