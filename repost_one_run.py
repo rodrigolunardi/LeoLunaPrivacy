@@ -7,6 +7,8 @@ import os
 from datetime import datetime
 import pytz
 
+# update to refresh cron
+
 # ===========================
 # 🔧 MODO TESTE DE HORÁRIO
 # ===========================
@@ -108,6 +110,7 @@ try:
         log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
+
 
 
 
