@@ -7,6 +7,13 @@ import os
 from datetime import datetime
 import pytz
 
+# ===========================
+# 🔧 MODO TESTE DE HORÁRIO
+# ===========================
+TEST_MODE = True              # ← MUDE PARA False depois
+TEST_HORARIO = "23:15"        # ← ESCOLHA A HORA DE TESTE
+# ===========================
+
 # Keys via GitHub Secrets (env)
 BEARER_TOKEN = os.environ['BEARER_TOKEN']
 API_KEY = os.environ['API_KEY']
@@ -25,17 +32,17 @@ NIGHTTIME_URLS = [
 ]
 
 HORARIOS_POR_DIA = {
-    'monday': ['01:00', '12:00', '17:00'],      # Segunda
-    'tuesday': ['01:00', '12:00'],              # Terça
-    'wednesday': ['15:00', '23:00'],            # Quarta
-    'thursday': ['13:00', '23:00'],             # Quinta
-    'friday': ['15:00', '23:00'],               # Sexta
-    'saturday': ['12:00', '23:00'],             # Sábado
-    'sunday': ['11:00', '17:00', '21:00']       # Domingo
+    'monday': ['01:00', '12:00', '17:00'],
+    'tuesday': ['01:00', '12:00'],
+    'wednesday': ['15:00', '23:00'],
+    'thursday': ['13:00', '23:00'],
+    'friday': ['15:00', '23:00'],
+    'saturday': ['12:00', '23:00'],
+    'sunday': ['11:00', '17:00', '21:00']
 }
 
-DAYTIME_HORARIOS = {'11:00', '12:00', '13:00', '14:00', '15:00', '17:00'}
-NIGHTTIME_HORARIOS = {'00:00', '01:00', '21:00', '23:00'}
+DAYTIME_HORARIOS = {'11:00','12:00','13:00','14:00','15:00','17:00'}
+NIGHTTIME_HORARIOS = {'00:00','01:00','21:00','23:00'}
 
 logging.basicConfig(filename='/tmp/repost_log.txt', level=logging.INFO)
 TZ = pytz.timezone('America/Sao_Paulo')
@@ -51,7 +58,7 @@ def log(msg):
     print(f"[{timestamp}] {msg}")
     logging.info(msg)
 
-def extrair_tweet_id(url): 
+def extrair_tweet_id(url):
     return url.split('/')[-1].split('?')[0]
 
 def processar_reposts(urls):
@@ -66,33 +73,38 @@ def processar_reposts(urls):
             log("ℹ️ Sem repost anterior")
         time.sleep(random.uniform(5, 15))
         client.retweet(tweet_id)
-        log(f"✅ Repost: {tweet_id}")
+        log(f"🔥 Repost: {tweet_id}")
         time.sleep(random.uniform(30, 60))
 
-# RODA UMA VEZ (verifica horário atual)
 try:
     me = client.get_me()
     log(f"✅ Autenticado: @{me.data.username}")
-    
+
     agora = datetime.now(TZ).strftime('%H:%M')
     dia_semana = datetime.now(TZ).strftime('%A').lower()
-    horarios = HORARIOS_POR_DIA.get(dia_semana, [])
-    
+    horarios_real = HORARIOS_POR_DIA.get(dia_semana, [])
+
+    # 👉 adiciona horario de teste
+    if TEST_MODE:
+        horarios_real = horarios_real + [TEST_HORARIO]
+        log(f"🧪 TESTE: adicionando horário {TEST_HORARIO}")
+
     executou = False
-    for horario in horarios:
+    for horario in horarios_real:
         if agora == horario:
-            log(f"🕐 Horário exato: {horario} ({dia_semana})")
+            log(f"🕐 Horário válido: {horario} ({dia_semana})")
+
             if horario in DAYTIME_HORARIOS:
                 processar_reposts(DAYTIME_URLS)
                 log("☀️ Diurnas concluídas")
             else:
                 processar_reposts(NIGHTTIME_URLS)
                 log("🌙 Noturnas concluídas")
+
             executou = True
             break
-    
+
     if not executou:
-        log(f"ℹ️ Sem horário agora ({agora}). OK para cron manual/teste.")
-    
+        log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
