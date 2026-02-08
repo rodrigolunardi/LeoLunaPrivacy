@@ -23,6 +23,8 @@ on:
     - cron: '0 0 * * 0'
   workflow_dispatch:
 
+# update to refresh cron
+
 jobs:
   repost:
     runs-on: ubuntu-latest
