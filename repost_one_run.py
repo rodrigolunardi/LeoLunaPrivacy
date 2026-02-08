@@ -11,7 +11,7 @@ import pytz
 # 🔧 MODO TESTE DE HORÁRIO
 # ===========================
 TEST_MODE = True              # ← MUDE PARA False depois
-TEST_HORARIO = "23:15"        # ← ESCOLHA A HORA DE TESTE
+TEST_HORARIO = "23:18"        # ← ESCOLHA A HORA DE TESTE
 # ===========================
 
 # Keys via GitHub Secrets (env)
@@ -108,3 +108,4 @@ try:
         log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
+
