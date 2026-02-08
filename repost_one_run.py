@@ -10,8 +10,8 @@ import pytz
 # ===========================
 # 🔧 MODO TESTE DE HORÁRIO
 # ===========================
-TEST_MODE = True              # ← MUDE PARA False depois
-TEST_HORARIO = "23:18"        # ← ESCOLHA A HORA DE TESTE
+TEST_MODE = False              # ← MUDE PARA False depois
+TEST_HORARIO = "23:38"        # ← ESCOLHA A HORA DE TESTE
 # ===========================
 
 # Keys via GitHub Secrets (env)
@@ -37,12 +37,12 @@ HORARIOS_POR_DIA = {
     'wednesday': ['15:00', '23:00'],
     'thursday': ['13:00', '23:00'],
     'friday': ['15:00', '23:00'],
-    'saturday': ['12:00', '23:00', '23:30'],
+    'saturday': ['12:00', '23:00', '23:38'],
     'sunday': ['11:00', '17:00', '21:00']
 }
 
 DAYTIME_HORARIOS = {'11:00','12:00','13:00','14:00','15:00','17:00'}
-NIGHTTIME_HORARIOS = {'00:00','01:00','21:00','23:00', '23:30'}
+NIGHTTIME_HORARIOS = {'00:00','01:00','21:00','23:00', '23:38'}
 
 logging.basicConfig(filename='/tmp/repost_log.txt', level=logging.INFO)
 TZ = pytz.timezone('America/Sao_Paulo')
@@ -108,6 +108,7 @@ try:
         log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
+
 
 
 
