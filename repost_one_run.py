@@ -39,12 +39,12 @@ HORARIOS_POR_DIA = {
     'wednesday': ['15:00', '23:00'],
     'thursday': ['13:00', '23:00'],
     'friday': ['15:00', '23:00'],
-    'saturday': ['12:00', '23:00', '23:38'],
+    'saturday': ['12:00', '23:00', '23:46'],
     'sunday': ['11:00', '17:00', '21:00']
 }
 
 DAYTIME_HORARIOS = {'11:00','12:00','13:00','14:00','15:00','17:00'}
-NIGHTTIME_HORARIOS = {'00:00','01:00','21:00','23:00', '23:38'}
+NIGHTTIME_HORARIOS = {'00:00','01:00','21:00','23:00', '23:46'}
 
 logging.basicConfig(filename='/tmp/repost_log.txt', level=logging.INFO)
 TZ = pytz.timezone('America/Sao_Paulo')
@@ -110,6 +110,7 @@ try:
         log(f"ℹ️ Sem horário agora: {agora}. Aguardando cron...")
 except Exception as e:
     log(f"❌ Erro: {e}")
+
 
 
 
